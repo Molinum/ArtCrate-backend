@@ -56,6 +56,11 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
+    <!-- Cliente Eureka: registra el servicio y permite encontrar a los demás por su nombre -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>

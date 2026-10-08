@@ -14,6 +14,7 @@
   <description>Microservicios de la tienda online ArtCrate</description>
 
   <modules>
+    <module>eureka-server</module>
     <module>usuarios-service</module>
     <module>catalogo-service</module>
     <module>inventario-service</module>

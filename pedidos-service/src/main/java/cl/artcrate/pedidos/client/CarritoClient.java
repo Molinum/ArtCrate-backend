@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-/** Cliente Feign de carrito-service (servicios.carrito.url). */
-@FeignClient(name = "carrito-service", url = "${servicios.carrito.url}")
+/** Cliente Feign de carrito-service (se encuentra por su nombre en Eureka). */
+@FeignClient(name = "carrito-service")
 public interface CarritoClient {
 
     @GetMapping("/api/carritos/{usuarioId}")
