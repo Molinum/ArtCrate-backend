@@ -21,5 +21,6 @@
     <module>carrito-service</module>
     <module>pedidos-service</module>
     <module>pagos-service</module>
+    <module>gateway-service</module>
   </modules>
 </project>

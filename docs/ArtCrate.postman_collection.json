@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "ArtCrate - API de microservicios",
-    "description": "Colección para probar los 6 microservicios de ArtCrate. Empieza por la carpeta \"0 - Flujo de compra\".",
+    "description": "Colección para probar ArtCrate a través del API Gateway (http://localhost:8080). Empieza por la carpeta \"0 - Flujo de compra\".",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -19,7 +19,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios/login"
+              "raw": "{{url}}/api/usuarios/login"
             },
             "description": "Devuelve el usuario sin contraseña. Guarda su id en la variable usuarioId.",
             "body": {
@@ -51,7 +51,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos"
+              "raw": "{{url}}/api/productos"
             }
           }
         },
@@ -66,7 +66,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items"
             },
             "body": {
               "mode": "raw",
@@ -90,7 +90,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items"
             },
             "body": {
               "mode": "raw",
@@ -114,7 +114,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items/1"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items/1"
             },
             "body": {
               "mode": "raw",
@@ -138,7 +138,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items/1"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items/1"
             },
             "body": {
               "mode": "raw",
@@ -162,7 +162,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos"
+              "raw": "{{url}}/api/pedidos"
             },
             "description": "Descuenta el stock, guarda el pedido PENDIENTE_PAGO y vacía el carrito. Guarda el id en pedidoId.",
             "body": {
@@ -194,7 +194,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}"
             }
           }
         },
@@ -204,7 +204,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlInventario}}/api/inventario"
+              "raw": "{{url}}/api/inventario"
             }
           }
         },
@@ -219,7 +219,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlPagos}}/api/pagos"
+              "raw": "{{url}}/api/pagos"
             },
             "body": {
               "mode": "raw",
@@ -238,12 +238,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos/{{pedidoId}}"
+              "raw": "{{url}}/api/pedidos/{{pedidoId}}"
             }
           }
         }
       ],
-      "description": "Ejecuta los pasos en orden (Run collection). Requiere los 6 servicios arriba."
+      "description": "Ejecuta los pasos en orden (Run collection). Requiere Eureka, los 6 servicios y el gateway arriba (run-all.bat)."
     },
     {
       "name": "usuarios-service (8081)",
@@ -259,7 +259,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios/registro"
+              "raw": "{{url}}/api/usuarios/registro"
             },
             "body": {
               "mode": "raw",
@@ -283,7 +283,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios/login"
+              "raw": "{{url}}/api/usuarios/login"
             },
             "body": {
               "mode": "raw",
@@ -302,7 +302,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios"
+              "raw": "{{url}}/api/usuarios"
             }
           }
         },
@@ -312,7 +312,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios/{{usuarioId}}"
+              "raw": "{{url}}/api/usuarios/{{usuarioId}}"
             }
           }
         },
@@ -327,7 +327,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios/{{usuarioId}}"
+              "raw": "{{url}}/api/usuarios/{{usuarioId}}"
             },
             "body": {
               "mode": "raw",
@@ -346,7 +346,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{urlUsuarios}}/api/usuarios/{{usuarioId}}"
+              "raw": "{{url}}/api/usuarios/{{usuarioId}}"
             },
             "description": "Cuidado: borra el usuario de la variable usuarioId."
           }
@@ -362,7 +362,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/categorias"
+              "raw": "{{url}}/api/categorias"
             }
           }
         },
@@ -372,7 +372,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/categorias/1"
+              "raw": "{{url}}/api/categorias/1"
             }
           }
         },
@@ -387,7 +387,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCatalogo}}/api/categorias"
+              "raw": "{{url}}/api/categorias"
             },
             "body": {
               "mode": "raw",
@@ -411,7 +411,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCatalogo}}/api/categorias/6"
+              "raw": "{{url}}/api/categorias/6"
             },
             "body": {
               "mode": "raw",
@@ -430,7 +430,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/categorias/6"
+              "raw": "{{url}}/api/categorias/6"
             }
           }
         },
@@ -440,7 +440,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos"
+              "raw": "{{url}}/api/productos"
             }
           }
         },
@@ -450,7 +450,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos?categoriaId=1"
+              "raw": "{{url}}/api/productos?categoriaId=1"
             }
           }
         },
@@ -460,7 +460,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos?q=acrilico"
+              "raw": "{{url}}/api/productos?q=acrilico"
             }
           }
         },
@@ -470,7 +470,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos/1"
+              "raw": "{{url}}/api/productos/1"
             }
           }
         },
@@ -485,7 +485,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos"
+              "raw": "{{url}}/api/productos"
             },
             "description": "Guarda el id en la variable productoNuevoId.",
             "body": {
@@ -522,7 +522,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos/{{productoNuevoId}}"
+              "raw": "{{url}}/api/productos/{{productoNuevoId}}"
             },
             "body": {
               "mode": "raw",
@@ -541,7 +541,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{urlCatalogo}}/api/productos/{{productoNuevoId}}"
+              "raw": "{{url}}/api/productos/{{productoNuevoId}}"
             }
           }
         }
@@ -556,7 +556,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlInventario}}/api/inventario"
+              "raw": "{{url}}/api/inventario"
             }
           }
         },
@@ -566,7 +566,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlInventario}}/api/inventario/1"
+              "raw": "{{url}}/api/inventario/1"
             }
           }
         },
@@ -581,7 +581,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlInventario}}/api/inventario/1"
+              "raw": "{{url}}/api/inventario/1"
             },
             "body": {
               "mode": "raw",
@@ -605,7 +605,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlInventario}}/api/inventario/descontar"
+              "raw": "{{url}}/api/inventario/descontar"
             },
             "description": "Si falta stock de cualquier producto responde 409 y no descuenta ninguno.",
             "body": {
@@ -630,7 +630,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlInventario}}/api/inventario/reponer"
+              "raw": "{{url}}/api/inventario/reponer"
             },
             "body": {
               "mode": "raw",
@@ -654,7 +654,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}"
             }
           }
         },
@@ -669,7 +669,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items"
             },
             "body": {
               "mode": "raw",
@@ -693,7 +693,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items/1"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items/1"
             },
             "body": {
               "mode": "raw",
@@ -712,7 +712,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}/items/1"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}/items/1"
             }
           }
         },
@@ -722,7 +722,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{urlCarrito}}/api/carritos/{{usuarioId}}"
+              "raw": "{{url}}/api/carritos/{{usuarioId}}"
             }
           }
         }
@@ -742,7 +742,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos"
+              "raw": "{{url}}/api/pedidos"
             },
             "body": {
               "mode": "raw",
@@ -773,7 +773,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos"
+              "raw": "{{url}}/api/pedidos"
             }
           }
         },
@@ -783,7 +783,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos/{{pedidoId}}"
+              "raw": "{{url}}/api/pedidos/{{pedidoId}}"
             }
           }
         },
@@ -793,7 +793,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos/usuario/{{usuarioId}}"
+              "raw": "{{url}}/api/pedidos/usuario/{{usuarioId}}"
             }
           }
         },
@@ -808,7 +808,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos/{{pedidoId}}/estado"
+              "raw": "{{url}}/api/pedidos/{{pedidoId}}/estado"
             },
             "body": {
               "mode": "raw",
@@ -832,7 +832,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlPedidos}}/api/pedidos/{{pedidoId}}/estado"
+              "raw": "{{url}}/api/pedidos/{{pedidoId}}/estado"
             },
             "description": "Solo se puede cancelar desde PENDIENTE_PAGO.",
             "body": {
@@ -862,7 +862,7 @@
               }
             ],
             "url": {
-              "raw": "{{urlPagos}}/api/pagos"
+              "raw": "{{url}}/api/pagos"
             },
             "body": {
               "mode": "raw",
@@ -881,7 +881,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlPagos}}/api/pagos/1"
+              "raw": "{{url}}/api/pagos/1"
             }
           }
         },
@@ -891,7 +891,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{urlPagos}}/api/pagos/pedido/{{pedidoId}}"
+              "raw": "{{url}}/api/pagos/pedido/{{pedidoId}}"
             }
           }
         }
@@ -900,28 +900,8 @@
   ],
   "variable": [
     {
-      "key": "urlUsuarios",
-      "value": "http://localhost:8081"
-    },
-    {
-      "key": "urlCatalogo",
-      "value": "http://localhost:8082"
-    },
-    {
-      "key": "urlInventario",
-      "value": "http://localhost:8083"
-    },
-    {
-      "key": "urlCarrito",
-      "value": "http://localhost:8084"
-    },
-    {
-      "key": "urlPedidos",
-      "value": "http://localhost:8085"
-    },
-    {
-      "key": "urlPagos",
-      "value": "http://localhost:8086"
+      "key": "url",
+      "value": "http://localhost:8080"
     },
     {
       "key": "usuarioId",
