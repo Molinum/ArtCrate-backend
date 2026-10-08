@@ -102,6 +102,8 @@ chmod +x run-all.sh stop-all.sh        # solo si el repo se copió sin permisos 
   `ESPERA_ENTRE=5 JAVA_OPTS="-Xmx256m" ./run-all.sh` (también existen `ESPERA_TRAS_EUREKA`, `ESPERA_ANTES_GATEWAY` y `MAX_ESPERA_PUERTO`).
 - `./stop-all.sh` cierra cada servicio de forma normal (el gateway primero y Eureka al final) y fuerza el cierre si tarda más de 15 s.
 
+No hace falta tocar `/etc/hosts` ni la red: todos los servicios se registran en Eureka como `localhost`.
+
 Los scripts se probaron con el bash de Git Bash en Windows (arranque, omisión de servicios ya corriendo, detención, y los errores de falta de Java y de JVM que muere al arrancar). **No se pudieron probar en Arch Linux real**; solo usan bash estándar, `java` y (opcionalmente) `curl`.
 
 ### Opción 2: uno por uno
@@ -298,6 +300,7 @@ En el `application.properties` de cada servicio hay unas líneas comentadas. Par
 - Los errores `405` (método no permitido) de rutas inexistentes usan el formato por defecto de Spring Boot.
 - No hay pruebas unitarias automáticas (solo las pruebas manuales de arriba), ni seguridad, JWT ni validación de roles.
 - **Eureka en modo desarrollo:** para que todo reaccione rápido se acortaron los tiempos por defecto: el servicio se registra 5 s después de arrancar (antes 40 s), avisa que sigue vivo cada 5 s y se elimina tras 15 s sin avisar; los clientes actualizan la lista cada 5 s y el balanceador de carga recuerda las direcciones 5 s (antes 35 s). En el servidor se desactivó la "autopreservación" (si no, con pocos servicios Eureka dejaría listados los que están caídos). Estos valores están comentados en cada `application.properties` / `application.yml`; en producción conviene volver a los valores por defecto.
+- **Eureka registra todo como `localhost`** (`eureka.instance.hostname=localhost` en los 6 servicios y el gateway). Por defecto Eureka registra el nombre del equipo (hostname), y si ese nombre no resuelve a una IP (por ejemplo, en una instalación nueva de Arch sin entrada en `/etc/hosts`) las llamadas entre servicios fallan con 503. Como los 8 procesos corren en la misma máquina, `localhost` siempre funciona, sin depender del nombre del equipo ni de la red. Si algún día los servicios corren en máquinas distintas, hay que quitar esta propiedad.
 - **Gateway:** en el release train 2025.0 el starter se llama `spring-cloud-starter-gateway-server-webflux` (el antiguo `spring-cloud-starter-gateway` está obsoleto) y las propiedades van bajo `spring.cloud.gateway.server.webflux.*`. Es reactivo, así que su módulo no incluye `spring-boot-starter-web`. Las rutas son explícitas (no se usa el descubrimiento automático de rutas).
 - **CORS** solo en el gateway; los 6 servicios no lo configuran. Si el front llamara directo a un servicio, el navegador lo bloquearía: hay que usar el puerto 8080.
 - **`run-all.bat`** espera con `timeout`; si no hay consola interactiva (por ejemplo, al lanzarlo desde otro programa) usa `ping` como respaldo, porque `timeout` falla en ese caso.
