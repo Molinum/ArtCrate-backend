@@ -1,0 +1,4 @@
+# Los scripts de shell SIEMPRE con saltos de línea LF (si no, fallan en Linux)
+*.sh text eol=lf
+# Los .bat con CRLF (Windows)
+*.bat text eol=crlf

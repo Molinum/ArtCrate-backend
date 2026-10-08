@@ -10,3 +10,7 @@ data/
 *.iml
 .DS_Store
 Thumbs.db
+
+# Salida y PIDs de run-all.sh
+logs/
+.pids/

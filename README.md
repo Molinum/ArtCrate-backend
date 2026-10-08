@@ -82,6 +82,28 @@ Espera a que cada ventana muestre `Started ...Application`. Para detener un serv
 Para comprobar que todo está registrado, abre el **panel de Eureka**: http://localhost:8761 (debe listar los 7 servicios en estado `UP`).
 Un servicio nuevo tarda unos segundos en aparecer y en ser visto por los demás.
 
+### En Linux (Arch), macOS o Git Bash: `run-all.sh`
+
+```bash
+sudo pacman -S jdk21-openjdk maven     # solo en Arch, si aún no los tienes
+archlinux-java status                  # comprueba que Java 21 sea el activo (si no: sudo archlinux-java set java-21-openjdk)
+
+chmod +x run-all.sh stop-all.sh        # solo si el repo se copió sin permisos de ejecución
+./run-all.sh                           # arranca todo, con pausas entre cada servicio
+./stop-all.sh                          # detiene todo
+```
+
+`run-all.sh` sigue el mismo orden que el `.bat` (Eureka → 6 microservicios → gateway) pero **en segundo plano** y con el mismo terminal libre:
+- Compila los 8 módulos si falta algún `.jar` (o siempre, con `./run-all.sh --build`) y arranca cada servicio con `java -jar`.
+- Espera a que Eureka abra su puerto y 10 s más; luego deja **3 s entre cada servicio** y **5 s antes del gateway**. Al final espera a que todos abran su puerto y muestra cuántos quedaron registrados en Eureka (deben ser 7 de 7).
+- La salida de cada servicio va a `logs/<servicio>.log` (por ejemplo `tail -f logs/carrito-service.log`) y su PID a `.pids/`. Si un servicio muere al arrancar, el script lo avisa y muestra las últimas líneas de su log.
+- Si un puerto ya está en uso, ese servicio se omite (así se puede volver a ejecutar sin duplicar procesos).
+- Cambia las pausas o la memoria con variables de entorno, por ejemplo en un portátil con poca RAM:
+  `ESPERA_ENTRE=5 JAVA_OPTS="-Xmx256m" ./run-all.sh` (también existen `ESPERA_TRAS_EUREKA`, `ESPERA_ANTES_GATEWAY` y `MAX_ESPERA_PUERTO`).
+- `./stop-all.sh` cierra cada servicio de forma normal (el gateway primero y Eureka al final) y fuerza el cierre si tarda más de 15 s.
+
+Los scripts se probaron con el bash de Git Bash en Windows (arranque, omisión de servicios ya corriendo, detención, y los errores de falta de Java y de JVM que muere al arrancar). **No se pudieron probar en Arch Linux real**; solo usan bash estándar, `java` y (opcionalmente) `curl`.
+
 ### Opción 2: uno por uno
 
 ```bash
@@ -190,10 +212,12 @@ Códigos: `201` al crear, `204` al borrar, `400` datos inválidos, `401` login i
 - Si el otro servicio no responde (apagado, conexión rechazada, más de 5 segundos, o ya no está registrado en Eureka): **503** con el mensaje `Servicio inventario no disponible` (o `catalogo`, `carrito`, `pedidos`).
 - Si el otro servicio responde 404 o 409, se devuelve el mismo código con su mensaje.
 
-**Errores del propio gateway** (por ejemplo, si el servicio de la ruta pedida está caído): el gateway usa el formato de error por defecto de Spring
-(`timestamp`, `path`, `status`, `error`, `requestId`). Si el servicio ya fue eliminado de Eureka responde **503**; en los pocos segundos entre que el
-servicio cae y Eureka lo elimina, responde **500** (conexión rechazada). Los errores de negocio (404, 409, 503 con mensaje, etc.) pasan tal cual desde cada servicio.
-Una ruta que no existe (`/api/nada`) responde 404.
+**Errores del propio gateway:** el gateway también responde con el mismo JSON uniforme (`ManejadorErroresGateway`):
+- Si el servicio de la ruta está caído, no tiene instancias en Eureka o no responde a tiempo: **503** `Servicio inventario no disponible` (el nombre es el de la ruta: `usuarios`, `catalogo`, `inventario`, `carrito`, `pedidos` o `pagos`). Es igual si el servicio acaba de caer o si Eureka ya lo eliminó.
+- Una ruta que no existe (`/api/nada`): **404** `No existe la ruta /api/nada`.
+- Cualquier otro fallo inesperado del gateway: **500** `Error interno del servidor`.
+
+Los errores de negocio de los servicios (400, 404, 409, 503 con mensaje, etc.) pasan por el gateway **sin modificarse**.
 
 Los **timeouts** (5 s para conectar y 5 s para leer) se configuran en cada `application.properties` con
 `spring.cloud.openfeign.client.config.default.connect-timeout` y `...read-timeout`.
@@ -247,6 +271,8 @@ En **Postman**: importa `docs/ArtCrate.postman_collection.json`. La carpeta **"0
 8. Crear otro pedido y cancelarlo → el stock vuelve al valor anterior; cancelar uno ya pagado → 409.
 9. **Falla:** con `inventario-service` apagado, agregar al carrito y crear un pedido responden **503 "Servicio inventario no disponible"**; carrito y pedidos siguen vivos, el carrito conserva sus ítems y no queda ningún pedido a medias. **El gateway sigue funcionando** (mismo proceso, las demás rutas responden). Al volver el servicio, la compra pendiente se completa (en unos segundos, lo que tarda Eureka en volver a verlo).
 
+**Errores del gateway:** con `inventario-service` apagado, `GET /api/inventario` por el gateway responde 503 con el JSON uniforme (tanto en los segundos en que Eureka aún lo lista como cuando ya lo eliminó); lo mismo con `catalogo-service` (mensaje "Servicio catalogo no disponible"); una ruta inexistente responde 404; los errores de los servicios (400, 404...) pasan sin cambios; las demás rutas siguen funcionando.
+
 **Gateway y CORS:** una petición con `Origin: http://localhost:5173` recibe una sola cabecera `Access-Control-Allow-Origin`; un origen no permitido recibe 403; los servicios llamados directo ya no envían cabeceras CORS.
 
 **Pruebas adicionales:** descontar stock es todo o nada (3 descuentos simultáneos sobre un stock de 6 → solo uno pasa), tres pagos simultáneos del mismo pedido dejan un solo pago, y si el carrito falla justo al vaciarse, el pedido se deshace y el stock se repone.
@@ -282,7 +308,9 @@ En el `application.properties` de cada servicio hay unas líneas comentadas. Par
 ```
 artcrate-backend/
 ├── pom.xml              # agregador de los 8 módulos
-├── run-all.bat          # arranca todo en orden
+├── run-all.bat          # arranca todo en orden (Windows)
+├── run-all.sh           # arranca todo en orden, en segundo plano (Linux / macOS / Git Bash)
+├── stop-all.sh          # detiene lo que lanzó run-all.sh
 ├── docs/                # colección Postman
 ├── eureka-server/       # registro de servicios (8761)
 ├── gateway-service/     # API Gateway (8080); rutas y CORS en application.yml
