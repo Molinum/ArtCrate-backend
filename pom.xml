@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- POM agregador: solo sirve para compilar los 6 servicios con un único "mvn clean package".
+     Cada servicio tiene su propio pom y es un proyecto independiente. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cl.artcrate</groupId>
+  <artifactId>artcrate-backend</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>ArtCrate Backend</name>
+  <description>Microservicios de la tienda online ArtCrate</description>
+
+  <modules>
+    <module>usuarios-service</module>
+    <module>catalogo-service</module>
+    <module>inventario-service</module>
+    <module>carrito-service</module>
+    <module>pedidos-service</module>
+    <module>pagos-service</module>
+  </modules>
+</project>

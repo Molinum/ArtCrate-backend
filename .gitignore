@@ -1,0 +1,12 @@
+# Compilación de Maven
+target/
+
+# Bases de datos H2 en archivo (se crean al arrancar cada servicio)
+data/
+
+# Editores y sistema operativo
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
