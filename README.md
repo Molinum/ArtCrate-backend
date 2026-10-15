@@ -64,7 +64,7 @@ Las flechas indican quién llama a quién (por Feign, siempre con la URL escrita
 
 - **Java 21** (`java -version`)
 - **Maven 3.9+** (`mvn -v`)
-- Conexión a internet la primera vez (Maven descarga las dependencias).
+- Conexión a internet la primera vez.
 
 Versiones usadas (verificadas entre sí): Spring Boot **3.5.16**, Spring Cloud **2025.0.3** (release train para Boot 3.5; el 2025.1.x es para Boot 4; incluye Eureka/Netflix 4.3.3, OpenFeign 4.3.3 y Gateway 4.3.5), springdoc **2.8.17** (línea para Boot 3).
 
