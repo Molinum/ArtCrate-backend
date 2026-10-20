@@ -1,0 +1,28 @@
+# Base de datos de ArtCrate: un solo MySQL con una base por servicio.
+#   Levantar:  docker compose up -d
+#   Apagar:    docker compose down          (los datos se conservan en el volumen)
+#   Empezar de cero: docker compose down -v (borra el volumen y se recrean las bases)
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: artcrate-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: artcrate
+      MYSQL_PASSWORD: artcrate
+      TZ: America/Santiago
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - artcrate-mysql-data:/var/lib/mysql
+      - ./docker/mysql-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  artcrate-mysql-data:

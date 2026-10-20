@@ -82,7 +82,7 @@ arrancar() {
     return 2
   fi
   echo "→ Iniciando $nombre (puerto $puerto)..."
-  # Se ejecuta desde la carpeta del módulo: así la base H2 queda en <módulo>/data, igual que con mvn spring-boot:run
+  # Se ejecuta desde la carpeta del módulo: igual que con mvn spring-boot:run
   # setsid (si existe) desprende el proceso de la terminal, para que siga vivo aunque se cierre.
   local lanzador=()
   command -v setsid >/dev/null 2>&1 && lanzador=(setsid)
