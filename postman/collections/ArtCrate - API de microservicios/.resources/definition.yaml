@@ -2,8 +2,8 @@ $kind: collection
 description: Colección para probar ArtCrate a través del API Gateway (http://localhost:8080). Empieza por la carpeta "0 - Flujo de compra".
 variables:
   url: http://localhost:8080
-  usuarioId: "3"
-  usuarioNuevoId: "4"
+  usuarioId: "2"
+  usuarioNuevoId: "3"
   pedidoId: "1"
   productoNuevoId: "13"
   categoriaNuevaId: "6"
