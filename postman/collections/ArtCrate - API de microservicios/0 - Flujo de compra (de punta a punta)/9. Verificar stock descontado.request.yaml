@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/api/inventario"
+method: GET
+order: 9000

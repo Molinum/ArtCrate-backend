@@ -1,0 +1,20 @@
+$kind: http-request
+description: Guarda el id en la variable categoriaNuevaId.
+url: "{{url}}/api/categorias"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Manualidades",
+      "descripcion": "Materiales para manualidades"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var datos = pm.response.json();
+      pm.collectionVariables.set("categoriaNuevaId", datos.id);
+    language: text/javascript
+order: 3000

@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{url}}/api/carritos/{{usuarioId}}/items/1"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "cantidad": 2
+    }
+order: 3000

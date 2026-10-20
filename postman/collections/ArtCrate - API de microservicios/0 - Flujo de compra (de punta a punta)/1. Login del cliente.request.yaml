@@ -1,0 +1,20 @@
+$kind: http-request
+description: Devuelve el usuario sin contraseña. Guarda su id en la variable usuarioId.
+url: "{{url}}/api/usuarios/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "correo": "cliente@artcrate.cl",
+      "password": "Cliente123"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var datos = pm.response.json();
+      pm.collectionVariables.set("usuarioId", datos.id);
+    language: text/javascript
+order: 1000

@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/api/pagos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "pedidoId": "{{pedidoId}}",
+      "metodo": "TARJETA"
+    }
+order: 1000

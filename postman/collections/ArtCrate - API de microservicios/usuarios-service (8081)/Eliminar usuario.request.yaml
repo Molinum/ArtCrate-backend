@@ -1,0 +1,5 @@
+$kind: http-request
+description: "Cuidado: borra el usuario de la variable usuarioId."
+url: "{{url}}/api/usuarios/{{usuarioId}}"
+method: DELETE
+order: 6000

@@ -1,0 +1,22 @@
+$kind: http-request
+description: Descuenta el stock, guarda el pedido PENDIENTE_PAGO y vacía el carrito. Guarda el id en pedidoId.
+url: "{{url}}/api/pedidos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "usuarioId": "{{usuarioId}}",
+      "direccionDespacho": "Av. Providencia 1234",
+      "comuna": "Providencia",
+      "region": "Metropolitana de Santiago"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var datos = pm.response.json();
+      pm.collectionVariables.set("pedidoId", datos.id);
+    language: text/javascript
+order: 7000

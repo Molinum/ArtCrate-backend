@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/api/pedidos/{{pedidoId}}"
+method: GET
+order: 3000

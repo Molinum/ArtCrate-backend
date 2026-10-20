@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{url}}/api/pedidos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "usuarioId": "{{usuarioId}}",
+      "direccionDespacho": "Av. Providencia 1234",
+      "comuna": "Providencia",
+      "region": "Metropolitana de Santiago"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var datos = pm.response.json();
+      pm.collectionVariables.set("pedidoId", datos.id);
+    language: text/javascript
+order: 1000

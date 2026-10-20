@@ -1,0 +1,10 @@
+# Use this workspace to collaborate
+workspace:
+  id: 0acfc996-b945-4f30-8d56-b0d9fd12df7c
+
+localResources:
+  collections: []
+
+cloudResources:
+  collections:
+    ../postman/collections/ArtCrate - API de microservicios: ed106b92-1344-42e2-b133-03913dea62a9

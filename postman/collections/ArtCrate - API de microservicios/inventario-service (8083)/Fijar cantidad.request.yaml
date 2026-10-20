@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{url}}/api/inventario/1"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "cantidad": 25
+    }
+order: 3000

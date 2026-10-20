@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{url}}/api/productos/{{productoNuevoId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "sku": "ART-TST-001",
+      "nombre": "Producto de prueba (editado)",
+      "descripcion": "Editado",
+      "precio": 6000,
+      "imagenUrl": "assets/img/prueba.svg",
+      "categoriaId": 2,
+      "activo": true
+    }
+order: 11000

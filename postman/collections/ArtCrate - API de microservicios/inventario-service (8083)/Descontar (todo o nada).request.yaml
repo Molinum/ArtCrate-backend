@@ -1,0 +1,20 @@
+$kind: http-request
+description: Si falta stock de cualquier producto responde 409 y no descuenta ninguno.
+url: "{{url}}/api/inventario/descontar"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    [
+      {
+        "productoId": 1,
+        "cantidad": 1
+      },
+      {
+        "productoId": 2,
+        "cantidad": 1
+      }
+    ]
+order: 4000

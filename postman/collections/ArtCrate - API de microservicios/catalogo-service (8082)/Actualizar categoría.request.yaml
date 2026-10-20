@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/api/categorias/{{categoriaNuevaId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Manualidades y papeles",
+      "descripcion": "Materiales varios"
+    }
+order: 4000

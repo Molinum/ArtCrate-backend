@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{url}}/api/usuarios/registro"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Ana",
+      "apellido": "Pérez",
+      "correo": "ana@correo.cl",
+      "password": "Abcdefg1",
+      "telefono": "+56912345678",
+      "region": "Valparaíso"
+    }
+order: 1000

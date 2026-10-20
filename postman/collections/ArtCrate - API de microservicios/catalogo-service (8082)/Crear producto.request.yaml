@@ -1,0 +1,25 @@
+$kind: http-request
+description: Guarda el id en la variable productoNuevoId.
+url: "{{url}}/api/productos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "sku": "ART-TST-001",
+      "nombre": "Producto de prueba",
+      "descripcion": "Solo para probar",
+      "precio": 5000,
+      "imagenUrl": "assets/img/prueba.svg",
+      "categoriaId": 2,
+      "activo": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var datos = pm.response.json();
+      pm.collectionVariables.set("productoNuevoId", datos.id);
+    language: text/javascript
+order: 10000

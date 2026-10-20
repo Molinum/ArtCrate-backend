@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{url}}/api/usuarios/{{usuarioId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Cliente",
+      "apellido": "Prueba",
+      "telefono": "+56912345678",
+      "region": "Maule",
+      "rol": "CLIENTE",
+      "activo": true
+    }
+order: 5000

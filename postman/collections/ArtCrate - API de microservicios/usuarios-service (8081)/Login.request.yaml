@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{url}}/api/usuarios/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "correo": "admin@artcrate.cl",
+      "password": "Admin123"
+    }
+order: 2000

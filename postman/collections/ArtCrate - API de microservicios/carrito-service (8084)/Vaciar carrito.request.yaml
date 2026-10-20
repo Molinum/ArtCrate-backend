@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{url}}/api/carritos/{{usuarioId}}"
+method: DELETE
+order: 5000

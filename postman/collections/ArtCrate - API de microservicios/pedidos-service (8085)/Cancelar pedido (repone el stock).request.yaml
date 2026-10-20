@@ -1,0 +1,13 @@
+$kind: http-request
+description: Solo se puede cancelar desde PENDIENTE_PAGO.
+url: "{{url}}/api/pedidos/{{pedidoId}}/estado"
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "estado": "CANCELADO"
+    }
+order: 6000

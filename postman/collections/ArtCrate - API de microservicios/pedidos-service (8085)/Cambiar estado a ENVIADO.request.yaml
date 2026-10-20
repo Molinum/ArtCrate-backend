@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{url}}/api/pedidos/{{pedidoId}}/estado"
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "estado": "ENVIADO"
+    }
+order: 5000
