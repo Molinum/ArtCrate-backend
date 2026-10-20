@@ -50,7 +50,9 @@ usuarios catalogo   inventario  carrito  pedidos    pagos
 | `/api/pedidos/**` | pedidos-service |
 | `/api/pagos/**` | pagos-service |
 
-CORS se configura solo en el gateway (`http://localhost:*`). Las rutas están en `gateway-service/src/main/resources/application.yml`.
+CORS se configura solo en el gateway (`http://localhost:*`).
+
+**Swagger.** Cada servicio expone su documentación OpenAPI. El gateway lee el JSON de los 6 (rutas `/docs/<servicio>/v3/api-docs`) y los muestra en una sola pantalla en `http://localhost:8080/swagger-ui.html`. Las rutas están en `gateway-service/src/main/resources/application.yml`.
 
 **Descubrimiento de servicios.** Cada servicio se registra en Eureka con su `spring.application.name`. El gateway y los clientes Feign usan ese nombre en vez de una URL fija (`lb://usuarios-service`, `@FeignClient(name = "inventario-service")`).
 

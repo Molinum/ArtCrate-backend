@@ -28,7 +28,7 @@ Más detalle del diseño en [docs/arquitectura.md](docs/arquitectura.md).
 | pedidos-service | 8085 | Pedidos y sus estados | pedidos_db |
 | pagos-service | 8086 | Pago simulado de pedidos | pagos_db |
 
-El front debe llamar solo al gateway (`http://localhost:8080`), que es el único con CORS configurado. Cada servicio también tiene Swagger en `http://localhost:<puerto>/swagger-ui.html`.
+El front debe llamar solo al gateway (`http://localhost:8080`), que es el único con CORS configurado. Cada servicio también tiene Swagger en `http://localhost:<puerto>/swagger-ui.html`. Además, el gateway junta los 6 en una sola pantalla: `http://localhost:8080/swagger-ui.html`, con un selector arriba a la derecha para elegir el servicio. Desde ahí, "Try it out" llama por el gateway (cada servicio lo declara en su `config/OpenApiConfig.java`), porque es el único con CORS habilitado.
 
 ## Requisitos
 
