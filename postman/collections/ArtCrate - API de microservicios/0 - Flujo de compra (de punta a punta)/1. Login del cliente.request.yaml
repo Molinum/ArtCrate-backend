@@ -8,8 +8,8 @@ body:
   type: json
   content: |-
     {
-      "correo": "cliente@artcrate.cl",
-      "password": "Cliente123"
+      "correo": "ana@correo.cl",
+      "password": "Abcdefg1"
     }
 scripts:
   - type: afterResponse

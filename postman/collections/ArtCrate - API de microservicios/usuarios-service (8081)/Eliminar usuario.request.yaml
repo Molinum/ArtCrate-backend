@@ -1,5 +1,5 @@
 $kind: http-request
-description: "Cuidado: borra el usuario de la variable usuarioId."
-url: "{{url}}/api/usuarios/{{usuarioId}}"
+description: "Borra el usuario de prueba creado en Registro (variable usuarioNuevoId); no toca a Ana."
+url: "{{url}}/api/usuarios/{{usuarioNuevoId}}"
 method: DELETE
 order: 6000

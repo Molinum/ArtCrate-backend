@@ -136,7 +136,7 @@ Todas las rutas se llaman a través del gateway (`http://localhost:8080`).
 | GET | `/api/pagos/{id}` | Ver un pago |
 | GET | `/api/pagos/pedido/{pedidoId}` | Pagos de un pedido |
 
-La colección de Postman está en `docs/ArtCrate.postman_collection.json`. La carpeta "0 - Flujo de compra" recorre una compra completa.
+La colección de Postman está en `postman/collections/ArtCrate - API de microservicios/` (formato YAML de Postman). La carpeta "0 - Flujo de compra" recorre una compra completa.
 
 ## Reglas principales
 
