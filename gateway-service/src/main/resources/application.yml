@@ -52,6 +52,68 @@ spring:
               predicates:
                 - Path=/api/pagos/**
 
+            # ----- Swagger de cada servicio (solo el JSON de OpenAPI, no la pantalla):
+            # el gateway lo pide con un nombre distinto por servicio y lo reenvía a /v3/api-docs.
+            # La pantalla de Swagger la pone el propio gateway (ver springdoc más abajo), así que
+            # solo existe UNA vez y muestra las 6 specs en un selector. -----
+            - id: usuarios-docs
+              uri: lb://usuarios-service
+              predicates:
+                - Path=/docs/usuarios/v3/api-docs
+              filters:
+                - RewritePath=/docs/usuarios/v3/api-docs, /v3/api-docs
+            - id: catalogo-docs
+              uri: lb://catalogo-service
+              predicates:
+                - Path=/docs/catalogo/v3/api-docs
+              filters:
+                - RewritePath=/docs/catalogo/v3/api-docs, /v3/api-docs
+            - id: inventario-docs
+              uri: lb://inventario-service
+              predicates:
+                - Path=/docs/inventario/v3/api-docs
+              filters:
+                - RewritePath=/docs/inventario/v3/api-docs, /v3/api-docs
+            - id: carrito-docs
+              uri: lb://carrito-service
+              predicates:
+                - Path=/docs/carrito/v3/api-docs
+              filters:
+                - RewritePath=/docs/carrito/v3/api-docs, /v3/api-docs
+            - id: pedidos-docs
+              uri: lb://pedidos-service
+              predicates:
+                - Path=/docs/pedidos/v3/api-docs
+              filters:
+                - RewritePath=/docs/pedidos/v3/api-docs, /v3/api-docs
+            - id: pagos-docs
+              uri: lb://pagos-service
+              predicates:
+                - Path=/docs/pagos/v3/api-docs
+              filters:
+                - RewritePath=/docs/pagos/v3/api-docs, /v3/api-docs
+
+# ----- Swagger agregado: una sola pantalla (http://localhost:8080/swagger-ui.html) con un
+# selector para las 6 specs, cada una leída a través de las rutas /docs/<servicio>/v3/api-docs
+# de arriba. "Probar" (Try it out) funciona porque cada servicio reporta su URL pública como
+# http://localhost:8080 (ver server.forward-headers-strategy en cada application.properties),
+# así que las peticiones de prueba van por las rutas /api/** normales, no directo al servicio. -----
+springdoc:
+  swagger-ui:
+    urls:
+      - name: usuarios
+        url: /docs/usuarios/v3/api-docs
+      - name: catalogo
+        url: /docs/catalogo/v3/api-docs
+      - name: inventario
+        url: /docs/inventario/v3/api-docs
+      - name: carrito
+        url: /docs/carrito/v3/api-docs
+      - name: pedidos
+        url: /docs/pedidos/v3/api-docs
+      - name: pagos
+        url: /docs/pagos/v3/api-docs
+
 # ----- Eureka: de aquí el gateway averigua dónde está cada servicio -----
 eureka:
   client:

@@ -3,6 +3,8 @@ package cl.artcrate.pagos.controller;
 import cl.artcrate.pagos.dto.CrearPagoRequest;
 import cl.artcrate.pagos.dto.PagoResponse;
 import cl.artcrate.pagos.service.PagoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 /** Endpoints REST de /api/pagos. */
 @RestController
 @RequestMapping("/api/pagos")
+@Tag(name = "Pagos", description = "Pago (simulado) de los pedidos")
 public class PagoController {
 
     private final PagoService service;
@@ -25,17 +28,20 @@ public class PagoController {
         this.service = service;
     }
 
+    @Operation(summary = "Pagar un pedido")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
     public PagoResponse pagar(@Valid @RequestBody CrearPagoRequest datos) {
         return service.pagar(datos);
     }
 
+    @Operation(summary = "Obtener un pago por id")
     @GetMapping("/{id}")
     public PagoResponse obtener(@PathVariable Long id) {
         return service.obtener(id);
     }
 
+    @Operation(summary = "Listar los pagos de un pedido")
     @GetMapping("/pedido/{pedidoId}")
     public List<PagoResponse> listarPorPedido(@PathVariable Long pedidoId) {
         return service.listarPorPedido(pedidoId);

@@ -5,6 +5,8 @@ import cl.artcrate.usuarios.dto.LoginRequest;
 import cl.artcrate.usuarios.dto.RegistroRequest;
 import cl.artcrate.usuarios.dto.UsuarioResponse;
 import cl.artcrate.usuarios.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 /** Endpoints REST de /api/usuarios. El controlador solo recibe la petición y delega en el servicio. */
 @RestController
 @RequestMapping("/api/usuarios")
+@Tag(name = "Usuarios", description = "Registro, login y gestión de usuarios")
 public class UsuarioController {
 
     private final UsuarioService service;
@@ -29,32 +32,38 @@ public class UsuarioController {
         this.service = service;
     }
 
+    @Operation(summary = "Registrar un cliente nuevo")
     @PostMapping("/registro")
     @ResponseStatus(HttpStatus.CREATED) // 201
     public UsuarioResponse registro(@Valid @RequestBody RegistroRequest datos) {
         return service.registrar(datos);
     }
 
+    @Operation(summary = "Iniciar sesión")
     @PostMapping("/login")
     public UsuarioResponse login(@Valid @RequestBody LoginRequest datos) {
         return service.login(datos);
     }
 
+    @Operation(summary = "Listar todos los usuarios")
     @GetMapping
     public List<UsuarioResponse> listar() {
         return service.listar();
     }
 
+    @Operation(summary = "Obtener un usuario por id")
     @GetMapping("/{id}")
     public UsuarioResponse obtener(@PathVariable Long id) {
         return service.obtener(id);
     }
 
+    @Operation(summary = "Actualizar los datos de un usuario")
     @PutMapping("/{id}")
     public UsuarioResponse actualizar(@PathVariable Long id, @Valid @RequestBody ActualizarUsuarioRequest datos) {
         return service.actualizar(id, datos);
     }
 
+    @Operation(summary = "Eliminar un usuario")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     public void eliminar(@PathVariable Long id) {

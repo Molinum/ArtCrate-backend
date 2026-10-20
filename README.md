@@ -8,6 +8,11 @@ Es simple a propósito: sin Docker, sin Lombok y sin seguridad/JWT (todavía).
 **El front (carpeta `ArtCrate`, al lado de esta) debe llamar SOLO a `http://localhost:8080` (el gateway).** El gateway es el único lugar con CORS (`http://localhost:*`).
 Los servicios también se pueden llamar directo por su puerto (para Swagger y pruebas), pero sin CORS.
 
+**Swagger a través del gateway:** además del Swagger de cada servicio (tabla de abajo), el gateway junta los 6 en una sola pantalla:
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html), con un selector arriba a la derecha para elegir el servicio.
+El gateway solo lee el JSON de OpenAPI de cada servicio (rutas `/docs/<servicio>/v3/api-docs` en `gateway-service/src/main/resources/application.yml`, reenviadas a `/v3/api-docs` de cada uno); la pantalla de Swagger existe una sola vez, en el propio gateway.
+Cada servicio declara dos servidores posibles para "Probar" (*Try it out*), en su `config/OpenApiConfig.java`: el gateway (`http://localhost:8080`, primero y recomendado) y su propio puerto (para probarlo aislado, sin pasar por el gateway). Tiene que ser una lista fija: como el gateway es el único lugar con CORS habilitado, si "Probar" llamara directo al puerto del servicio desde la pantalla agregada del gateway, el navegador lo bloquearía.
+
 ## Tabla de servicios
 
 | Servicio | Puerto | Qué hace | Llama a | Swagger | Consola H2 (JDBC URL) |

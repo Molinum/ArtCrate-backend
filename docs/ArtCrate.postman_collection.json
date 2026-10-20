@@ -389,6 +389,7 @@
             "url": {
               "raw": "{{url}}/api/categorias"
             },
+            "description": "Guarda el id en la variable categoriaNuevaId.",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre\": \"Manualidades\",\n  \"descripcion\": \"Materiales para manualidades\"\n}",
@@ -398,7 +399,19 @@
                 }
               }
             }
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var datos = pm.response.json();",
+                  "pm.collectionVariables.set(\"categoriaNuevaId\", datos.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "Actualizar categoría",
@@ -411,7 +424,7 @@
               }
             ],
             "url": {
-              "raw": "{{url}}/api/categorias/6"
+              "raw": "{{url}}/api/categorias/{{categoriaNuevaId}}"
             },
             "body": {
               "mode": "raw",
@@ -430,7 +443,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{url}}/api/categorias/6"
+              "raw": "{{url}}/api/categorias/{{categoriaNuevaId}}"
             }
           }
         },
@@ -914,6 +927,10 @@
     {
       "key": "productoNuevoId",
       "value": "13"
+    },
+    {
+      "key": "categoriaNuevaId",
+      "value": "6"
     }
   ]
 }
